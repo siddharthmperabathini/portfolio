@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-// ── Types ──────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────v──────────────────────────
 
 type ExperienceProps = {
   number: string;
@@ -34,15 +34,15 @@ function Experience({ number, title, org, period, description, tags }: Experienc
         </div>
 
         {/* CONTENT */}
-        <div style={{ flex: 1 }}>
-          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "16px" }}>
-            <h2 className="h1" style={{ fontSize: "2rem", margin: 0, lineHeight: 1.1 }}>
-              {title}
-            </h2>
-            <span className="p" style={{ fontSize: "12px", opacity: 0.5, flexShrink: 0 }}>
-              {period}
-            </span>
-          </div>
+       <div style={{ flex: 1 }}>
+  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
+    <h2 className="h1" style={{ fontSize: "2rem", margin: 0, lineHeight: 1.1, flex: 1, minWidth: 0 }}>
+      {title}
+    </h2>
+    <span className="p" style={{ fontSize: "12px", opacity: 0.5, flexShrink: 0 }}>
+      {period}
+    </span>
+  </div>
 
           <p className="p" style={{ fontSize: "13px", opacity: 0.6, marginTop: "4px", textTransform: "none" }}>
             {org}
@@ -235,7 +235,7 @@ export default function CV() {
   ];
 
   return (
-    <main className="container min-h-screen">
+    <main className="container min-h-screen" style={{ paddingLeft: '16em', paddingRight: '16em' }}>
 
       {/* PAGE HEADER */}
       <div className="row">

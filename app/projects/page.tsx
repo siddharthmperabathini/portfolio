@@ -72,7 +72,7 @@ function Project({ number, title, description, languages }: ProjectProps) {
 
 export default function Projects() {
   return (
-    <main className="container min-h-screen">
+    <main className="container min-h-screen" style={{ paddingLeft: '16em', paddingRight: '16em' }}>
 
       {/* HEADER */}
       <div className="row">

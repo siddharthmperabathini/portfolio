@@ -17,7 +17,7 @@ const Navbar = () => {
   const linkStyle = "cursor-pointer hover:opacity-70 transition-opacity no-underline";
 
   return (
-    <nav className="container relative">
+    <nav className="container relative" style={{ paddingLeft: '16em', paddingRight: '16em' }}>
       {/* Main Flex Container */}
       <div className="flex items-center justify-between">
         

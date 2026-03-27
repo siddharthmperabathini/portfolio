@@ -17,6 +17,11 @@ html:focus-within {
     scroll-behavior: smooth;
 }
 
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
 /* BRUTALIST BODY SETUP */
 body {
     width: 100%;
@@ -175,24 +180,32 @@ main.container {
 .hide-3 { transition-delay: 0.9s; }
 .hide-4 { transition-delay: 1.2s; }
 
+/* SECTION ROW (desktop) */
+.section-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.section-word {
+    white-space: nowrap;
+}
 
 /* ── RESPONSIVE ─────────────────────────────────────────────────────── */
 
 @media (max-width: 900px) {
 
-    /* Fix the massive padding — this is the biggest culprit */
     .container,
     main.container,
     nav.container {
         padding: 1.5rem !important;
     }
 
-    /* Headings */
     .h1 {
         font-size: 2.8em;
     }
 
-    /* Body text */
     .p {
         font-size: 12px;
         line-height: 1.6;
@@ -201,14 +214,42 @@ main.container {
         margin-right: 0;
     }
 
-    /* Stack all rows vertically */
+    .h1, .p, h1, h2, p {
+        word-break: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+
     .row {
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;
     }
 
-    /* Reduce whitespace — 150px gaps are too tall on mobile */
+    .section-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .section-word {
+        font-size: clamp(2rem, 10vw, 4rem) !important;
+        white-space: normal;
+    }
+
+    .first {
+        flex-direction: column !important;
+    }
+
+    .first > div {
+        width: 100% !important;
+        flex: unset !important;
+    }
+
+    .first img {
+        width: 100% !important;
+        max-width: 320px;
+    }
+
     .white-space {
         height: 48px;
     }
@@ -221,31 +262,25 @@ main.container {
         height: 120px;
     }
 
-    /* Projects/CV number column — shrink the fixed width */
     [style*="width: 80px"] {
         width: 40px !important;
         font-size: 20px !important;
     }
 
-    /* Project/CV title font size */
     [style*="font-size: 4rem"] {
         font-size: 1.8rem !important;
     }
 
-    /* Hero image — full width on mobile */
-    .first img {
-        width: 100% !important;
-        max-width: 320px;
-    }
-
-    /* Navbar links — tighten padding */
     nav a {
         padding: 6px !important;
     }
 
-    /* Nav items wrap if needed */
     nav .flex {
         flex-wrap: wrap;
         gap: 0 !important;
+    }
+
+    * {
+        max-width: 100%;
     }
 }

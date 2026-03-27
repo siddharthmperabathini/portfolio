@@ -4,7 +4,7 @@ import "./globals.css";
 import Navbar from "./navbar/page";
 import Bottom from "./bottom/page";
 import localFont from "next/font/local";
-
+import {Analytics} from "@vercel/analytics/next";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -49,6 +49,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Bottom />
+        <Analytics />
       </body>
     </html>
   );
