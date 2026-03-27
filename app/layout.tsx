@@ -1,10 +1,28 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "./navbar/page";
+import Bottom from "./bottom/page";
+import localFont from "next/font/local";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+const satoshi = localFont({
+  src: "../public/fonts/Satoshi-Regular.otf", // Added '..' to go up to root
+  variable: "--font-satoshi",
+});
+
+const sfMono = localFont({
+  src: "../public/fonts/SFMonoRegular.otf", // Added '..' to go up to root
+  variable: "--font-sf-mono",
+});
+
+const gambetta = localFont({
+  src: "../public/fonts/Gambetta-Regular.woff2", 
+  variable: "--font-gambetta",
 });
 
 const geistMono = Geist_Mono({
@@ -25,9 +43,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${satoshi.variable} ${gambetta.variable} ${sfMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Navbar />
+        {children}
+        <Bottom />
+      </body>
     </html>
   );
 }
