@@ -23,7 +23,7 @@ export default function Page() {
               className={`hide-2 ${visibilityClass} h1 primary font-bold leading-none`}
               style={{ fontSize: 'clamp(2rem, 8vw, rem)', wordBreak: 'break-word' }}
             >
-              Siddharth Perabathini
+              Siddharth Mohan Perabathini
             </h1>
           </div>
           <div className="slidein" style={{ maxWidth: '95%' }}></div>
@@ -32,9 +32,9 @@ export default function Page() {
             <div className="p">Computer Science and Mathematics | Purdue University</div>
           </div>
           <p className="p" style={{ fontSize: "16px", lineHeight: "1.6", textTransform: "none", maxWidth: "45ch" }}>
-            I'm a computer science and mathematics student focused on building systems that are both efficient and thoughtful.
+            I&apos;m a computer science and mathematics student at Purdue University focused on building systems that are both efficient and thoughtful.
             My interests lie at the intersection of machine learning, algorithms, and software engineering, where I enjoy
-            breaking down complex problems into clean, scalable solutions. I'm currently exploring how theory translates into
+            breaking down complex problems into clean, scalable solutions. I&apos;m currently exploring how theory translates into
             real-world impact, with an emphasis on performance, design, and clarity.
           </p>
         </div>
@@ -91,7 +91,7 @@ export default function Page() {
         <div className={`reveal hide-2 ${visibilityClass}`}>
           <h1 className="h1 secondary section-word">Math</h1>
         </div>
-        <Link href="/CV" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <Link href="/cv" style={{ textDecoration: 'none', color: 'inherit' }}>
           <div className={`nav-item about hide-1 ${visibilityClass}`}>
             <div>CV</div>
             <div className="id">01</div>

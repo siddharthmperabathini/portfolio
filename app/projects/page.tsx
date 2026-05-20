@@ -90,27 +90,27 @@ export default function Projects() {
 
       <Project
         number="01"
-        title="Physics-Conditioned Grasping for Stable Tool Use"
-        description="A framework that generates robot grasps tailored for tool use by combining physics-based constraints with task-aware scoring, ensuring stability during dynamic interactions."
-        languages="Python · PyTorch · Robotics"
+        title="SPARK - AI-Powered Knowledge Evaluation Web App"
+        description="Built a full-stack system using Flask APIs, React, and PostgreSQL for knowledge evaluation via audio, text, and video. Integrated Librosa and Silero VAD for voice analysis, OpenAI Whisper API for speech-to-text, and OpenCV for facial expression detection. Evaluated speech content with GPT API, achieving 92% confidence scoring accuracy."
+        languages="Flask · React · PostgreSQL · OpenAI · OpenCV · Librosa"
       />
       <Project
         number="02"
-        title="C Subset Compiler (LLVM)"
-        description="A compiler for a subset of C with an LLVM backend, featuring SSA generation and optimization passes such as constant folding, dead code elimination, and register allocation."
-        languages="C++ · LLVM · Compilers"
+        title="Notewise - Handwritten Knowledge Digitization System"
+        description="Building an end-to-end iOS pipeline that converts handwritten notes into structured Notion pages and Latex documents. Integrating on-device OCR/HTR models, adaptive layout segmentation, and image-to-LaTeX models using Core ML and TensorFlow.js."
+        languages="iOS · Swift · Core ML · TensorFlow.js · Notion API · LaTeX"
       />
       <Project
         number="03"
-        title="Distributed Key-Value Store"
-        description="A fault-tolerant distributed key-value store implementing replication and consensus, designed for scalability and consistency across nodes."
-        languages="Go · Distributed Systems · Networking"
+        title="Context Dependent NFC + E-Ink Keychain"
+        description="Developing a low-power ESP32-S3 device with e-ink display, NFC, and BLE, dynamically switching between profiles (business card, emergency ID) using location, time, and geofencing. Implementing a context inference pipeline with rule-based logic and TensorFlow Lite."
+        languages="C++ · ESP32-S3 · TensorFlow Lite · BLE · NFC"
       />
       <Project
         number="04"
-        title="Distributed Key-Value Store"
-        description="A fault-tolerant distributed key-value store implementing replication and consensus, designed for scalability and consistency across nodes."
-        languages="Go · Distributed Systems · Networking"
+        title="Custom Compiler and Shell in C/C++"
+        description="Developed a compiler and Bash shell in C/C++, implementing lexical, syntax, and semantic analysis with a symbol table. Integrated a type checker and applied optimization that generated efficient Assembly code, achieving 55% faster execution."
+        languages="C++ · Assembly · Compilers · Operating Systems"
       />
 
     </main>

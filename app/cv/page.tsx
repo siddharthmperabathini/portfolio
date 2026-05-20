@@ -13,10 +13,16 @@ type ExperienceProps = {
   tags: string;
 };
 
+type Course = {
+  name: string;
+  subject: string;
+  number: string;
+};
+
 type CourseworkYear = {
   year: string;
   label: string;
-  courses: string[];
+  courses: Course[];
 };
 
 // ── Experience Item (mirrors Project layout) ───────────────────────────────────
@@ -113,7 +119,7 @@ function CourseworkDropdown({ year, label, courses }: CourseworkYear) {
 
       <div
         style={{
-          maxHeight: open ? "600px" : "0",
+          maxHeight: open ? "800px" : "0",
           overflow: "hidden",
           transition: "max-height 0.35s ease",
         }}
@@ -131,7 +137,15 @@ function CourseworkDropdown({ year, label, courses }: CourseworkYear) {
                 margin: 0,
               }}
             >
-              — {course}
+              —{" "}
+              <a
+                href={`https://selfservice.mypurdue.purdue.edu/prod/bzwsrch.p_catalog_detail?subject=${course.subject}&term=CURRENT&cnbr=${course.number}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "inherit", textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.2)" }}
+              >
+                {course.subject} {course.number}: {course.name}
+              </a>
             </p>
           ))}
         </div>
@@ -164,74 +178,91 @@ function SectionHeader({ title }: { title: string }) {
 export default function CV() {
   const coursework: CourseworkYear[] = [
     {
-      year: "Y1",
-      label: "First Year",
+      year: "F26",
+      label: "Fall 2026 (In Progress)",
       courses: [
-        "Calculus I & II",
-        "Introduction to Computer Science",
-        "Linear Algebra",
-        "Introduction to Physics",
-        "Discrete Mathematics",
+        { subject: "CS", number: "35400", name: "Operating Systems" },
+        { subject: "CS", number: "38100", name: "Intro Analysis Algor" },
+        { subject: "MA", number: "35301", name: "Linear Algebra II" },
+        { subject: "MA", number: "42500", name: "Elem Complex Anly" },
+        { subject: "MA", number: "45300", name: "Algebra I" },
       ],
     },
     {
-      year: "Y2",
-      label: "Second Year",
+      year: "F25",
+      label: "Fall 2025",
       courses: [
-        "Data Structures & Algorithms",
-        "Computer Architecture",
-        "Probability & Statistics",
-        "Multivariable Calculus",
-        "Introduction to Machine Learning",
+        { subject: "CS", number: "37300", name: "Data Mining & Machine Learning" },
+        { subject: "CS", number: "48900", name: "Embedded Systems" },
+        { subject: "MA", number: "34100", name: "Foundations Analysis" },
+        { subject: "MA", number: "36600", name: "Ord Differential Eqs" },
       ],
     },
     {
-      year: "Y3",
-      label: "Third Year",
+      year: "S25",
+      label: "Spring 2025",
       courses: [
-        "Operating Systems",
-        "Compilers",
-        "Deep Learning",
-        "Robotics",
-        "Distributed Systems",
+        { subject: "CS", number: "25200", name: "Systems Programming" },
+        { subject: "CS", number: "34800", name: "Information Systems" },
+        { subject: "CS", number: "47100", name: "Intr To Artifcl Intlgn" },
       ],
     },
     {
-      year: "Y4",
-      label: "Fourth Year",
+      year: "F24",
+      label: "Fall 2024",
       courses: [
-        "Robot Perception",
-        "Advanced Algorithms",
-        "Natural Language Processing",
-        "Computer Vision",
-        "Senior Thesis",
+        { subject: "CS", number: "25000", name: "Computer Architecture" },
+        { subject: "CS", number: "25100", name: "Data Structures And Algorithms" },
+        { subject: "MA", number: "35100", name: "Elem Linear Algebra" },
+      ],
+    },
+    {
+      year: "S24",
+      label: "Spring 2024",
+      courses: [
+        { subject: "CS", number: "18200", name: "Foundations Of Comp Sc" },
+        { subject: "CS", number: "24000", name: "Programming In C" },
+      ],
+    },
+    {
+      year: "F23",
+      label: "Fall 2023",
+      courses: [
+        { subject: "CS", number: "18000", name: "Prob Solving & O-O Programming" },
+        { subject: "MA", number: "26100", name: "Multivariate Calculus" },
       ],
     },
   ];
 
   const skills = [
     {
-      category: "Languages",
+      category: "Programming Languages",
       summary:
-        "Proficient in Python, C++, and Go; working knowledge of TypeScript, Rust, and CUDA.",
+        "Python, Java, C, C++, R, Rust, SQL, JavaScript, Flutter, Assembly, Tulip, PowerBI",
     },
     {
-      category: "Frameworks & Tools",
+      category: "Frameworks & Libraries",
       summary:
-        "PyTorch, ROS 2, LLVM, Docker, Git, and standard ML/scientific computing libraries.",
+        "SpringBoot, React, Angular, Vue, Django, Flask, Node.js, Express.js, PyTorch, Tensorflow",
     },
     {
-      category: "Research",
+      category: "Tools & Databases",
       summary:
-        "Experience in robot manipulation, compiler design, and distributed systems research.",
+        "Git, Docker, PostgreSQL, SQLAlchemy, MySQL, MongoDB",
+    },
+    {
+      category: "Concepts & Technologies",
+      summary:
+        "Machine Learning, Data Visualization, Version Control",
     },
   ];
 
   const teaching = [
-    "Teaching Assistant — Data Structures & Algorithms (Fall 2023)",
-    "Teaching Assistant — Introduction to Machine Learning (Spring 2024)",
-    "Lab Instructor — Computer Architecture (Fall 2024)",
-    "Guest Lecturer — Robotics Seminar (Spring 2025)",
+    "Teaching Assistant — Data Structures & Algorithms",
+    "Teaching Assistant — C Programming",
+    "Teaching Assistant — Database Systems",
+    "Teaching Assistant — Intro to CS",
+    "CS Help Room Consultant (September 2024 - Present)",
   ];
 
   return (
@@ -260,14 +291,14 @@ export default function CV() {
         <div style={{ flex: 1 }}>
           <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "16px" }}>
             <h2 className="h1" style={{ fontSize: "2rem", margin: 0, lineHeight: 1.1 }}>
-              B.S. Computer Science
+              B.S. Computer Science and Mathematics
             </h2>
             <span className="p" style={{ fontSize: "12px", opacity: 0.5, flexShrink: 0 }}>
-              2021 – 2025
+              May 2027
             </span>
           </div>
           <p className="p" style={{ fontSize: "13px", opacity: 0.6, marginTop: "4px", textTransform: "none" }}>
-            University Name · GPA 3.9 / 4.0
+            Purdue University · GPA 3.95 / 4.0
           </p>
 
           {/* Coursework dropdowns */}
@@ -288,29 +319,38 @@ export default function CV() {
 
       <Experience
         number="01"
-        title="Research Assistant"
-        org="Robotics & Perception Lab"
-        period="Jan 2024 – Present"
-        description="Developed physics-conditioned grasp generation pipelines for tool-use tasks, integrating real-time contact simulation with learned scoring functions to improve grasp stability on deformable objects."
-        tags="Python · PyTorch · ROS 2 · Research"
+        title="Full-Stack Software Engineering Intern"
+        org="Veygo Rentals"
+        period="July 2024 – Present"
+        description="Developing a Full Stack Application for reservations and vehicle tracking using Rust and PostgreSQL. Implementing backend features including a robust REST API with token-based authentication. Building frontend components for iOS and React web apps, achieving a 60% increase in development frequency through Agile workflows."
+        tags="Rust · PostgreSQL · React · iOS · Agile"
       />
 
       <Experience
         number="02"
-        title="Software Engineering Intern"
-        org="Acme Systems"
-        period="Summer 2023"
-        description="Built an internal observability dashboard that reduced on-call alert noise by 40% through smarter aggregation and anomaly detection across distributed microservices."
-        tags="Go · Prometheus · Kubernetes · Internship"
+        title="iOS Developer"
+        org="Huddle Social"
+        period="July 2024 – Present"
+        description="Built a Swift-based iOS UI for student events and housing, integrated with Firebase/Firestore. Developed a Python web scraper for college databases, driving 25% monthly growth."
+        tags="Swift · iOS · Firebase · Python · Web Scraping"
       />
 
       <Experience
         number="03"
-        title="Undergraduate Researcher"
-        org="Programming Languages Group"
-        period="Sep 2022 – Dec 2023"
-        description="Contributed to an LLVM-based C subset compiler, implementing SSA construction, constant folding, and a graph-coloring register allocator that improved generated code performance by 22%."
-        tags="C++ · LLVM · Compilers · Research"
+        title="Machine Learning Engineer"
+        org="Finish Line"
+        period="August 2023 – December 2023"
+        description="Developed a dynamic order routing model in Python and R, cleaning 500GB of data with pandas. Designed an interactive map in R using GGplot to visualize 700 store performances. Researched KNN, Random Forest, and ARIMA models using PyTorch and TensorFlow."
+        tags="Python · R · PyTorch · TensorFlow · pandas"
+      />
+
+      <Experience
+        number="04"
+        title="Full Stack Developer"
+        org="AstraZeneca"
+        period="January 2024 – May 2024"
+        description="Developed Lean Cards platform by automating notifications and designing reviewer workflows in Tulip. Engineered a real-time relational database and researched Power BI integration for data-driven decision-making."
+        tags="Tulip · SQL · Power BI · Full Stack"
       />
 
       {/* ── TEACHING ──────────────────────────────────────────── */}
