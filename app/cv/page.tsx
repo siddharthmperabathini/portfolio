@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 
-// ── Types ────────────────────────────────────────────v──────────────────────────
+// ── Types ──────────────────────────────────────────────────────────────────────
 
 type ExperienceProps = {
   number: string;
@@ -25,30 +26,37 @@ type CourseworkYear = {
   courses: Course[];
 };
 
-// ── Experience Item (mirrors Project layout) ───────────────────────────────────
+// ── Experience Item ────────────────────────────────────────────────────────────
 
 function Experience({ number, title, org, period, description, tags }: ExperienceProps) {
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="relative"
+    >
       <div style={{ display: "flex", alignItems: "flex-start", flexDirection: "row" }}>
-        {/* NUMBER */}
+        {/* NUMBER / TIMELINE DOT */}
         <div
-          className="p"
-          style={{ fontSize: "36px", opacity: 0.7, lineHeight: 1, flexShrink: 0, width: "80px" }}
+          className="p flex flex-col items-center"
+          style={{ flexShrink: 0, width: "80px", position: "relative" }}
         >
-          {number}
+          <div style={{ fontSize: "36px", opacity: 0.7, lineHeight: 1 }}>{number}</div>
+          <div className="w-[2px] bg-black/10 absolute top-[40px] bottom-[-32px] left-[39px] z-[-1]" />
         </div>
 
         {/* CONTENT */}
-       <div style={{ flex: 1 }}>
-  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
-    <h2 className="h1" style={{ fontSize: "2rem", margin: 0, lineHeight: 1.1, flex: 1, minWidth: 0 }}>
-      {title}
-    </h2>
-    <span className="p" style={{ fontSize: "12px", opacity: 0.5, flexShrink: 0 }}>
-      {period}
-    </span>
-  </div>
+        <div style={{ flex: 1 }}>
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
+            <h2 className="h1" style={{ fontSize: "2rem", margin: 0, lineHeight: 1.1, flex: 1, minWidth: 0 }}>
+              {title}
+            </h2>
+            <span className="p" style={{ fontSize: "12px", opacity: 0.5, flexShrink: 0 }}>
+              {period}
+            </span>
+          </div>
 
           <p className="p" style={{ fontSize: "13px", opacity: 0.6, marginTop: "4px", textTransform: "none" }}>
             {org}
@@ -70,13 +78,13 @@ function Experience({ number, title, org, period, description, tags }: Experienc
       <div className="white-space" style={{ height: "32px" }} />
       <div className="hr" />
       <div className="white-space" style={{ height: "32px" }} />
-    </div>
+    </motion.div>
   );
 }
 
-// ── Coursework Dropdown ────────────────────────────────────────────────────────
+// ── Collapsible Row (shared by Coursework and Skills) ─────────────────────────
 
-function CourseworkDropdown({ year, label, courses }: CourseworkYear) {
+function CollapsibleRow({ label, sublabel, children }: { label: string; sublabel?: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -96,10 +104,12 @@ function CourseworkDropdown({ year, label, courses }: CourseworkYear) {
         }}
       >
         <div style={{ display: "flex", alignItems: "baseline", gap: "24px" }}>
-          <span className="p" style={{ fontSize: "12px", opacity: 1, minWidth: "32px" }}>
-            {year}
-          </span>
-          <p className="p" style={{ textTransform: "none", marginTop: "10px", fontSize: "14px", lineHeight: "1.6" }}>
+          {sublabel && (
+            <span className="p" style={{ fontSize: "12px", opacity: 1, minWidth: "32px" }}>
+              {sublabel}
+            </span>
+          )}
+          <p className="p" style={{ textTransform: "none", fontSize: "14px", lineHeight: "1.6", margin: 0 }}>
             {label}
           </p>
         </div>
@@ -124,30 +134,8 @@ function CourseworkDropdown({ year, label, courses }: CourseworkYear) {
           transition: "max-height 0.35s ease",
         }}
       >
-        <div style={{ paddingBottom: "14px", paddingLeft: "56px" }}>
-          {courses.map((course, i) => (
-            <p
-              key={i}
-              className="p"
-              style={{
-                textTransform: "none",
-                fontSize: "13px",
-                lineHeight: "1.8",
-                opacity: 0.8,
-                margin: 0,
-              }}
-            >
-              —{" "}
-              <a
-                href={`https://selfservice.mypurdue.purdue.edu/prod/bzwsrch.p_catalog_detail?subject=${course.subject}&term=CURRENT&cnbr=${course.number}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "inherit", textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.2)" }}
-              >
-                {course.subject} {course.number}: {course.name}
-              </a>
-            </p>
-          ))}
+        <div style={{ paddingBottom: "14px" }}>
+          {children}
         </div>
       </div>
 
@@ -234,35 +222,35 @@ export default function CV() {
     },
   ];
 
-  const skills = [
-    {
-      category: "Programming Languages",
-      summary:
-        "Python, Java, C, C++, R, Rust, SQL, JavaScript, Flutter, Assembly, Tulip, PowerBI",
-    },
-    {
-      category: "Frameworks & Libraries",
-      summary:
-        "SpringBoot, React, Angular, Vue, Django, Flask, Node.js, Express.js, PyTorch, Tensorflow",
-    },
-    {
-      category: "Tools & Databases",
-      summary:
-        "Git, Docker, PostgreSQL, SQLAlchemy, MySQL, MongoDB",
-    },
-    {
-      category: "Concepts & Technologies",
-      summary:
-        "Machine Learning, Data Visualization, Version Control",
-    },
-  ];
-
   const teaching = [
     "Teaching Assistant — Data Structures & Algorithms",
     "Teaching Assistant — C Programming",
     "Teaching Assistant — Database Systems",
     "Teaching Assistant — Intro to CS",
     "CS Help Room Consultant (September 2024 - Present)",
+  ];
+
+  const skillCategories = [
+    {
+      id: "languages",
+      title: "Programming Languages",
+      items: "Python, Java, C, C++, R, Rust, SQL, JavaScript, Flutter, Assembly, Tulip, PowerBI",
+    },
+    {
+      id: "frameworks",
+      title: "Frameworks / Libraries",
+      items: "SpringBoot, React, Angular, Vue, Django, Flask, Node.js, Express.js, PyTorch, Tensorflow",
+    },
+    {
+      id: "tools",
+      title: "Tools and Databases",
+      items: "Git, Docker, PostgreSQL, SQLAlchemy, MySQL, MongoDB",
+    },
+    {
+      id: "concepts",
+      title: "Concepts and Technologies",
+      items: "Machine Learning, Data Visualization, Version Control",
+    },
   ];
 
   return (
@@ -284,9 +272,10 @@ export default function CV() {
       {/* ── EDUCATION ─────────────────────────────────────────── */}
       <SectionHeader title="Education" />
 
-      <div style={{ display: "flex", alignItems: "flex-start" }}>
-        <div className="p" style={{ fontSize: "36px", opacity: 0.7, lineHeight: 1, flexShrink: 0, width: "80px" }}>
-          01
+      <div style={{ display: "flex", alignItems: "flex-start", position: "relative" }}>
+        <div className="p flex flex-col items-center" style={{ flexShrink: 0, width: "80px", position: "relative" }}>
+          <div style={{ fontSize: "36px", opacity: 0.7, lineHeight: 1 }}>01</div>
+          <div className="w-[2px] bg-black/10 absolute top-[40px] bottom-[-32px] left-[39px] z-[-1]" />
         </div>
         <div style={{ flex: 1 }}>
           <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "16px" }}>
@@ -304,7 +293,33 @@ export default function CV() {
           {/* Coursework dropdowns */}
           <div style={{ marginTop: "20px" }}>
             {coursework.map((y) => (
-              <CourseworkDropdown key={y.year} {...y} />
+              <CollapsibleRow key={y.year} label={y.label} sublabel={y.year}>
+                <div style={{ paddingLeft: "56px" }}>
+                  {y.courses.map((course, i) => (
+                    <p
+                      key={i}
+                      className="p"
+                      style={{
+                        textTransform: "none",
+                        fontSize: "13px",
+                        lineHeight: "1.8",
+                        opacity: 0.8,
+                        margin: 0,
+                      }}
+                    >
+                      —{" "}
+                      <a
+                        href={`https://selfservice.mypurdue.purdue.edu/prod/bzwsrch.p_catalog_detail?subject=${course.subject}&term=CURRENT&cnbr=${course.number}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: "inherit", textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.2)" }}
+                      >
+                        {course.subject} {course.number}: {course.name}
+                      </a>
+                    </p>
+                  ))}
+                </div>
+              </CollapsibleRow>
             ))}
           </div>
         </div>
@@ -387,30 +402,20 @@ export default function CV() {
       <div style={{ display: "flex", alignItems: "flex-start" }}>
         <div style={{ width: "80px", flexShrink: 0 }} />
         <div style={{ flex: 1 }}>
-          {skills.map((s, i) => (
-            <div key={i} style={{ marginBottom: "16px" }}>
-              <p className="p" style={{ fontSize: "12px", opacity: 0.5, margin: 0 }}>
-                {s.category}
-              </p>
+          {skillCategories.map((category) => (
+            <CollapsibleRow key={category.id} label={category.title}>
               <p
                 className="p"
-                style={{
-                  textTransform: "none",
-                  fontSize: "14px",
-                  lineHeight: "1.6",
-                  marginTop: "4px",
-                  opacity: 0.85,
-                }}
+                style={{ textTransform: "none", fontSize: "14px", lineHeight: "1.6", opacity: 0.75, margin: 0 }}
               >
-                {s.summary}
+                {category.items}
               </p>
-            </div>
+            </CollapsibleRow>
           ))}
         </div>
       </div>
 
-      <div className="white-space" style={{ height: "32px" }} />
-      <div className="white-space" style={{ height: "32px" }} />
+      <div className="white-space" style={{ height: "64px" }} />
 
     </main>
   );

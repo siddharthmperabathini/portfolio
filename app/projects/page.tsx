@@ -1,4 +1,6 @@
 "use client";
+import { motion } from "framer-motion";
+import { Terminal, AnimatedSpan, TypingAnimation } from "../components/Terminal";
 
 type ProjectProps = {
   number: string;
@@ -9,7 +11,10 @@ type ProjectProps = {
 
 function Project({ number, title, description, languages }: ProjectProps) {
   return (
-    <div>
+    <motion.div
+      whileHover={{ y: -10 }}
+      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+    >
       {/* TITLE ROW */}
       <div
         style={{
@@ -66,7 +71,7 @@ function Project({ number, title, description, languages }: ProjectProps) {
       <div className="white-space small"></div>
       <div className="hr"></div>
       <div className="white-space small"></div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -75,12 +80,45 @@ export default function Projects() {
     <main className="container min-h-screen" style={{ paddingLeft: '16em', paddingRight: '16em' }}>
 
       {/* HEADER */}
-      <div className="row">
-        <div>
+      <div className="row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
+        <div style={{ flex: 1 }}>
           <h1 className="h1 primary">Projects</h1>
           <p className="p" style={{ textTransform: "none", marginTop: "10px", fontSize: "16px", lineHeight: "1.6" }}>
             Research work, software systems, and smaller experiments.
           </p>
+        </div>
+        <div style={{ flex: 1, maxWidth: '500px' }}>
+          <Terminal className="bg-zinc-950 text-zinc-100 border-zinc-800">
+            <TypingAnimation delay={0}>$ npm create next-app@latest</TypingAnimation>
+            <AnimatedSpan delay={1500} className="text-zinc-400">
+              Creating a new Next.js app...
+            </AnimatedSpan>
+            <AnimatedSpan delay={2000} className="text-zinc-400">
+              Installing dependencies:
+            </AnimatedSpan>
+            <AnimatedSpan delay={2500}>
+              <span className="text-green-400">✓</span> react
+            </AnimatedSpan>
+            <AnimatedSpan delay={2800}>
+              <span className="text-green-400">✓</span> react-dom
+            </AnimatedSpan>
+            <AnimatedSpan delay={3100}>
+              <span className="text-green-400">✓</span> next
+            </AnimatedSpan>
+            <AnimatedSpan delay={3400}>
+              <span className="text-green-400">✓</span> typescript
+            </AnimatedSpan>
+            <AnimatedSpan delay={4000} className="text-green-400">
+              Success! Created my-app
+            </AnimatedSpan>
+            <TypingAnimation delay={4500}>$ cd my-app && npm run dev</TypingAnimation>
+            <AnimatedSpan delay={5500} className="text-blue-400">
+              ▲ Next.js 16.0.0
+            </AnimatedSpan>
+            <AnimatedSpan delay={5800} className="text-zinc-400">
+              - Local: http://localhost:3000
+            </AnimatedSpan>
+          </Terminal>
         </div>
       </div>
 
